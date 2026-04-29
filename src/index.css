@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Noto Sans TC', sans-serif;
+
+  /* 主色：大地色 */
+  --color-primary-50: #FAF7F4;
+  --color-primary-100: #F2EAE1;
+  --color-primary-200: #E3D2C0;
+  --color-primary-300: #CFAF94;
+  --color-primary-400: #BB8E6C;
+  --color-primary-500: #A07350;
+  --color-primary-600: #865D3E;
+  --color-primary-700: #6B4830;
+  --color-primary-800: #533826;
+  --color-primary-900: #3E2B1D;
+
+  /* 輔色：芥末黃 */
+  --color-accent-50: #FEFBEC;
+  --color-accent-100: #FDF3C9;
+  --color-accent-200: #FCE68E;
+  --color-accent-300: #F9D44B;
+  --color-accent-400: #E8BE2A;
+  --color-accent-500: #CDA226;
+  --color-accent-600: #A67F1D;
+
+  /* 活潑配色標籤（色塊+白字風格） */
+  --color-tag-blue: #4A90B8;
+  --color-tag-red: #C75450;
+  --color-tag-orange: #D4875E;
+  --color-tag-green: #5B9A6F;
+  --color-tag-purple: #8B6BAE;
+  --color-tag-teal: #4A9A8E;
+
+  /* 兒少專區活潑色 */
+  --color-kids-blue: #63B3ED;
+  --color-kids-green: #68D391;
+  --color-kids-pink: #FC8181;
+  --color-kids-purple: #B794F4;
+  --color-kids-yellow: #F6E05E;
+}
+
+@font-face {
+  font-family: 'BpmfZihiSerif';
+  src: url('/BpmfZihiSerif-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: #FFFFFF;
+  color: #546A7B;
+}
+
+.dark body,
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #1A1714;
+  color: #C4B8A8;
+}
+
+/* 翻翻樂卡片 3D 翻轉 */
+.perspective-500 {
+  perspective: 600px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* 手繪風裝飾底線 */
+.underline-hand {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='8' viewBox='0 0 120 8'%3E%3Cpath d='M0 6 Q30 0 60 5 Q90 10 120 4' stroke='%23E8BE2A' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom 3px left;
+  background-size: 120px 8px;
+  padding-bottom: 6px;
+}
+
+/* 射氣球遊戲動畫 */
+@keyframes balloon-pop {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(0); opacity: 0; }
+}
+@keyframes balloon-appear {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes balloon-drift {
+  0%   { transform: translate(var(--dx1), var(--dy1)); }
+  25%  { transform: translate(var(--dx2), var(--dy2)); }
+  50%  { transform: translate(var(--dx3), var(--dy3)); }
+  75%  { transform: translate(var(--dx4), var(--dy4)); }
+  100% { transform: translate(var(--dx1), var(--dy1)); }
+}
+@keyframes shake-balloon {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.animate-balloon-pop {
+  animation: balloon-pop 0.35s ease-out forwards !important;
+}
+.animate-balloon-appear {
+  animation: balloon-appear 0.4s ease-out forwards;
+}
+.animate-balloon-drift {
+  animation: balloon-drift var(--drift-duration, 4s) ease-in-out infinite;
+}
+.animate-shake {
+  animation: shake-balloon 0.4s ease-out;
+}
+
+/* 故事書翻頁動畫 */
+.book-perspective {
+  perspective: 1800px;
+}
+
+/* 下一頁：右頁從右邊掀起來往左翻 */
+@keyframes page-turn-next {
+  0% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+    box-shadow: none;
+  }
+  30% {
+    transform: rotateY(-40deg) scale(1.02);
+    opacity: 1;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+  }
+  60% {
+    transform: rotateY(-120deg) scale(1.01);
+    opacity: 1;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  }
+  99.9% {
+    transform: rotateY(-180deg) scale(1);
+    opacity: 1;
+    box-shadow: none;
+  }
+  100% {
+    transform: rotateY(-180deg) scale(1);
+    opacity: 0;
+    box-shadow: none;
+  }
+}
+
+/* 新頁面直接顯示 */
+@keyframes page-reveal {
+  0% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* 上一頁：從左邊翻回來 */
+@keyframes page-turn-prev {
+  0% {
+    transform: rotateY(-180deg) scale(1);
+    opacity: 0;
+  }
+  0.1% {
+    transform: rotateY(-180deg) scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: rotateY(-120deg) scale(1.01);
+    opacity: 1;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.15);
+  }
+  70% {
+    transform: rotateY(-40deg) scale(1.02);
+    opacity: 1;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+    box-shadow: none;
+  }
+}
+
+.page-flip-next-out {
+  animation: page-turn-next 0.7s ease-in-out forwards;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.page-flip-next-in {
+  /* 新頁直接顯示，不延遲 */
+}
+.page-flip-prev-in {
+  animation: page-turn-prev 0.7s ease-in-out forwards;
+  transform-origin: right center;
+  transform-style: preserve-3d;
+}
