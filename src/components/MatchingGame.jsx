@@ -138,7 +138,6 @@ export default function MatchingGame() {
     catch { return {} }
   })
 
-  const lockRef = useRef(false)
   const timerRef = useRef(null)
   const audio = useAudio()
 
@@ -189,43 +188,52 @@ export default function MatchingGame() {
     setFlipped([])
     setMatched([])
     setElapsed(0)
-    lockRef.current = false
     setPhase('playing')
     audio.playBgm()
   }
 
   // ── 翻牌 ──
   function handleFlip(card) {
-    if (lockRef.current) return
     if (phase !== 'playing') return
     if (flipped.includes(card.uid)) return
     if (matched.includes(card.pairId)) return
+
+    // 已有兩張翻開 → 立刻結算前一輪，再以這張作為新一輪的第一張
+    if (flipped.length >= 2) {
+      const a = cards.find((c) => c.uid === flipped[0])
+      const b = cards.find((c) => c.uid === flipped[1])
+      if (a && b && a.pairId === b.pairId && a.uid !== b.uid) {
+        setMatched((prev) => (prev.includes(a.pairId) ? prev : [...prev, a.pairId]))
+      }
+      setFlipped([card.uid])
+      return
+    }
 
     const next = [...flipped, card.uid]
     setFlipped(next)
 
     if (next.length < 2) return
 
-    // 翻了兩張 → 鎖定
-    lockRef.current = true
+    // 翻了兩張 → 判定
     const first = cards.find((c) => c.uid === next[0])
     const second = card
+    const isMatch = first.pairId === second.pairId && first.uid !== second.uid
 
-    if (first.pairId === second.pairId && first.uid !== second.uid) {
-      // 配對成功
+    if (isMatch) {
       audio.playMatch()
       setTimeout(() => {
-        setMatched((prev) => [...prev, first.pairId])
-        setFlipped([])
-        lockRef.current = false
+        setMatched((prev) => (prev.includes(first.pairId) ? prev : [...prev, first.pairId]))
+        setFlipped((prev) =>
+          prev.length === 2 && prev[0] === next[0] && prev[1] === next[1] ? [] : prev
+        )
       }, 400)
     } else {
-      // 配對失敗
       audio.playWrong()
       setTimeout(() => {
-        setFlipped([])
-        lockRef.current = false
-      }, 400)
+        setFlipped((prev) =>
+          prev.length === 2 && prev[0] === next[0] && prev[1] === next[1] ? [] : prev
+        )
+      }, 600)
     }
   }
 
