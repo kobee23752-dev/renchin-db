@@ -40,6 +40,7 @@ const navItems = [
   {
     path: '/empowerment', label: '培力方案', icon: Users,
     children: [
+      { label: '✨ 研究者原創教案', path: '/empowerment', hash: 'original' },
       { label: '國內方案', path: '/empowerment', hash: 'domestic' },
       { label: '國際方案', path: '/empowerment', hash: 'international' },
     ],

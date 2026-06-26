@@ -25,6 +25,7 @@ export default function EmpowermentPage() {
     }
   }, [hash])
 
+  const isOriginal = hash === 'original'
   const isDeepLink = hash && tabMeta.some((t) => t.id === hash)
 
   const programs = activeTab === 'domestic'
@@ -40,6 +41,90 @@ export default function EmpowermentPage() {
       p.description.toLowerCase().includes(search.toLowerCase())
     )
   })
+
+  // ===== 研究者原創教案 — 專屬頁 =====
+  if (isOriginal && featuredCurriculum) {
+    const c = featuredCurriculum
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        <Link
+          to="/empowerment"
+          className="inline-flex items-center gap-2 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 font-medium mb-6"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          返回培力方案
+        </Link>
+
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles className="w-5 h-5 text-accent-500" />
+          <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-accent-400 text-white">
+            本站原創教案
+          </span>
+          <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+            {c.organizer}
+          </span>
+        </div>
+
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">{c.title}</h1>
+        <p className="text-[15px] text-gray-600 dark:text-gray-300 leading-relaxed mb-5">{c.description}</p>
+
+        <div className="flex flex-wrap gap-1.5 mb-6">
+          {c.tags.map((tag) => (
+            <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400">
+              #{tag}
+            </span>
+          ))}
+        </div>
+
+        <a
+          href={c.downloadUrl}
+          download={c.downloadName}
+          className="inline-flex items-center gap-2 px-5 py-3 mb-8 bg-accent-500 hover:bg-accent-600 text-white rounded-xl text-base font-semibold transition-colors shadow-sm"
+        >
+          <Download className="w-5 h-5" />
+          下載完整 Word 教案
+        </a>
+
+        {/* 六堂課架構 */}
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">📋 六堂課架構</h2>
+        <div className="space-y-3 mb-8">
+          {c.structure.map((s) => (
+            <div
+              key={s.unit}
+              className="flex gap-4 items-start bg-white dark:bg-slate-800 rounded-xl border border-primary-200 dark:border-slate-700 p-4"
+            >
+              <span className="flex-shrink-0 px-3 py-1 rounded-lg text-sm font-bold bg-accent-100 text-accent-600 dark:bg-accent-900/20 dark:text-accent-400">
+                {s.unit}
+              </span>
+              <div>
+                <h3 className="text-base font-bold text-gray-900 dark:text-white">{s.title}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{s.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* 教案特色 */}
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">💡 教案特色</h2>
+        <div className="bg-primary-100/50 dark:bg-primary-900/10 rounded-xl p-5 mb-8">
+          <ul className="space-y-2">
+            {c.keyPoints.map((point, i) => (
+              <li key={i} className="text-sm text-gray-700 dark:text-gray-300 flex gap-2">
+                <span className="text-accent-500 flex-shrink-0">✓</span>{point}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-xl border border-primary-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            本教案歡迎陪讀班、課輔班、學校與社區團體免費取用、改編施作。引用時請註明來源：
+            <span className="text-gray-700 dark:text-gray-200 font-medium">中華仁親社區關懷協會 × 李雨函</span>。
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   // Index view
   if (!isDeepLink) {
@@ -77,7 +162,7 @@ export default function EmpowermentPage() {
                 下載 Word 教案
               </a>
               <Link
-                to="/empowerment#domestic"
+                to="/empowerment#original"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-700 text-primary-700 dark:text-gray-200 border border-primary-200 dark:border-slate-600 rounded-xl text-sm font-semibold hover:shadow-sm transition-shadow"
               >
                 查看 6 堂課架構
