@@ -115,7 +115,7 @@ export default function EmpowermentPage() {
         <div className="rounded-xl border border-primary-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             本教案歡迎陪讀班、課輔班、學校與社區團體免費取用、改編施作。引用時請註明來源：
-            <span className="text-gray-700 dark:text-gray-200 font-medium">中華仁親社區關懷協會 × 李雨函</span>。
+            <span className="text-gray-700 dark:text-gray-200 font-medium">中華仁親社區關懷協會</span>。
           </p>
         </div>
       </div>
