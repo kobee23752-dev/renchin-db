@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { literature } from '../data/literature'
 import SearchBar from '../components/SearchBar'
@@ -36,6 +36,7 @@ categoryOrder.forEach((cat) => {
 
 export default function LiteraturePage() {
   const [search, setSearch] = useState('')
+  const [activeTag, setActiveTag] = useState('全部')
   const location = useLocation()
   const hash = location.hash.slice(1)
 
@@ -43,6 +44,9 @@ export default function LiteraturePage() {
   const activeCategory = hash
     ? categoryOrder.find((cat) => categoryMeta[cat]?.id === hash)
     : null
+
+  // 切換分類時重置標籤篩選
+  useEffect(() => { setActiveTag('全部') }, [activeCategory])
 
   function renderLitCard(lit, meta) {
     return (
@@ -113,6 +117,15 @@ export default function LiteraturePage() {
     const meta = categoryMeta[activeCategory]
     const items = grouped[activeCategory] || []
 
+    // 收集此分類所有標籤，依出現次數排序
+    const tagCounts = {}
+    items.forEach((lit) => lit.tags.forEach((t) => { tagCounts[t] = (tagCounts[t] || 0) + 1 }))
+    const allTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a])
+
+    const tagFiltered = activeTag === '全部'
+      ? items
+      : items.filter((lit) => lit.tags.includes(activeTag))
+
     return (
       <div className="max-w-4xl mx-auto px-4 py-10">
         <Link
@@ -127,12 +140,41 @@ export default function LiteraturePage() {
           <span className={`inline-block px-3 py-1 rounded-full text-sm font-bold ${meta.color}`}>
             {activeCategory}
           </span>
-          <span className="text-sm text-gray-400 dark:text-gray-500">{items.length} 篇</span>
+          <span className="text-sm text-gray-400 dark:text-gray-500">{tagFiltered.length} 篇</span>
         </div>
-        <p className="text-gray-500 dark:text-gray-400 mb-8">{meta.description}</p>
+        <p className="text-gray-500 dark:text-gray-400 mb-6">{meta.description}</p>
+
+        {/* 主題標籤篩選 */}
+        {allTags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-8">
+            <button
+              onClick={() => setActiveTag('全部')}
+              className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                activeTag === '全部'
+                  ? meta.color
+                  : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200'
+              }`}
+            >
+              全部 {items.length}
+            </button>
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setActiveTag(tag)}
+                className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                  activeTag === tag
+                    ? meta.color
+                    : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200'
+                }`}
+              >
+                #{tag} {tagCounts[tag]}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="space-y-6">
-          {items.map((lit) => renderLitCard(lit, meta))}
+          {tagFiltered.map((lit) => renderLitCard(lit, meta))}
         </div>
       </div>
     )
