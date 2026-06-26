@@ -56,8 +56,8 @@ export default function EmpowermentPage() {
         </Link>
 
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-5 h-5 text-accent-500" />
-          <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-accent-400 text-white">
+          <Sparkles className="w-5 h-5 text-tag-purple" />
+          <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-tag-purple text-white">
             本站原創教案
           </span>
           <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
@@ -79,7 +79,7 @@ export default function EmpowermentPage() {
         <a
           href={c.downloadUrl}
           download={c.downloadName}
-          className="inline-flex items-center gap-2 px-5 py-3 mb-8 bg-accent-500 hover:bg-accent-600 text-white rounded-xl text-base font-semibold transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-3 mb-8 bg-tag-purple hover:opacity-90 text-white rounded-xl text-base font-semibold transition-colors shadow-sm"
         >
           <Download className="w-5 h-5" />
           下載完整 Word 教案
@@ -93,7 +93,7 @@ export default function EmpowermentPage() {
               key={s.unit}
               className="flex gap-4 items-start bg-white dark:bg-slate-800 rounded-xl border border-primary-200 dark:border-slate-700 p-4"
             >
-              <span className="flex-shrink-0 px-3 py-1 rounded-lg text-sm font-bold bg-accent-100 text-accent-600 dark:bg-accent-900/20 dark:text-accent-400">
+              <span className="flex-shrink-0 px-3 py-1 rounded-lg text-sm font-bold bg-tag-purple/15 text-tag-purple dark:bg-tag-purple/25 dark:text-tag-purple">
                 {s.unit}
               </span>
               <div>
@@ -110,7 +110,7 @@ export default function EmpowermentPage() {
           <ul className="space-y-2">
             {c.keyPoints.map((point, i) => (
               <li key={i} className="text-sm text-gray-700 dark:text-gray-300 flex gap-2">
-                <span className="text-accent-500 flex-shrink-0">✓</span>{point}
+                <span className="text-tag-purple flex-shrink-0">✓</span>{point}
               </li>
             ))}
           </ul>
@@ -139,10 +139,10 @@ export default function EmpowermentPage() {
         </p>
 
         {featuredCurriculum && (
-          <div className="mb-8 rounded-2xl border-2 border-accent-300 dark:border-accent-600/50 bg-gradient-to-br from-accent-50 to-primary-50 dark:from-slate-800 dark:to-slate-800/50 p-6 md:p-7">
+          <div className="mb-8 rounded-2xl border-2 border-tag-purple/40 dark:border-tag-purple/40 bg-gradient-to-br from-tag-purple/10 to-primary-50 dark:from-slate-800 dark:to-slate-800/50 p-6 md:p-7">
             <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-5 h-5 text-accent-500" />
-              <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-accent-400 text-white">
+              <Sparkles className="w-5 h-5 text-tag-purple" />
+              <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-tag-purple text-white">
                 本站原創教案
               </span>
             </div>
@@ -156,7 +156,7 @@ export default function EmpowermentPage() {
               <a
                 href={featuredCurriculum.downloadUrl}
                 download={featuredCurriculum.downloadName}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white rounded-xl text-sm font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-tag-purple hover:opacity-90 text-white rounded-xl text-sm font-semibold transition-colors"
               >
                 <Download className="w-4 h-4" />
                 下載 Word 教案
@@ -226,14 +226,14 @@ export default function EmpowermentPage() {
             key={program.id}
             className={`rounded-2xl border p-6 ${
               program.featured
-                ? 'border-2 border-accent-300 dark:border-accent-600/50 bg-gradient-to-br from-accent-50 to-white dark:from-slate-800 dark:to-slate-800'
+                ? 'border-2 border-tag-purple/40 dark:border-tag-purple/40 bg-gradient-to-br from-tag-purple/5 to-white dark:from-slate-800 dark:to-slate-800'
                 : 'border-primary-200 dark:border-slate-700 bg-white dark:bg-slate-800'
             }`}
           >
             <div className="flex items-start justify-between gap-4">
               <div>
                 {program.featured && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-accent-400 text-white mb-2 mr-2">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-tag-purple text-white mb-2 mr-2">
                     <Sparkles className="w-3 h-3" />本站原創教案
                   </span>
                 )}
@@ -258,7 +258,7 @@ export default function EmpowermentPage() {
               <a
                 href={program.downloadUrl}
                 download={program.downloadName}
-                className="inline-flex items-center gap-2 px-4 py-2 mb-4 bg-accent-500 hover:bg-accent-600 text-white rounded-xl text-sm font-semibold transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 mb-4 bg-tag-purple hover:opacity-90 text-white rounded-xl text-sm font-semibold transition-colors"
               >
                 <Download className="w-4 h-4" />
                 下載 Word 教案
