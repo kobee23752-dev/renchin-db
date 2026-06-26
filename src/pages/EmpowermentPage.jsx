@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { empowermentPrograms } from '../data/empowerment'
 import SearchBar from '../components/SearchBar'
-import { Users, ChevronDown, ChevronUp, ArrowLeft, Download, Sparkles } from 'lucide-react'
+import { Users, ChevronDown, ChevronUp, ArrowLeft, Download } from 'lucide-react'
 
 const featuredCurriculum = empowermentPrograms.domestic.find((p) => p.featured)
 
@@ -56,12 +56,8 @@ export default function EmpowermentPage() {
         </Link>
 
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-5 h-5 text-tag-purple" />
           <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-tag-purple text-white">
             本站原創教案
-          </span>
-          <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
-            {c.organizer}
           </span>
         </div>
 
@@ -141,7 +137,6 @@ export default function EmpowermentPage() {
         {featuredCurriculum && (
           <div className="mb-8 rounded-2xl border-2 border-tag-purple/40 dark:border-tag-purple/40 bg-gradient-to-br from-tag-purple/10 to-primary-50 dark:from-slate-800 dark:to-slate-800/50 p-6 md:p-7">
             <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-5 h-5 text-tag-purple" />
               <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-tag-purple text-white">
                 本站原創教案
               </span>
@@ -233,8 +228,8 @@ export default function EmpowermentPage() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 {program.featured && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-tag-purple text-white mb-2 mr-2">
-                    <Sparkles className="w-3 h-3" />本站原創教案
+                  <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-tag-purple text-white mb-2 mr-2">
+                    本站原創教案
                   </span>
                 )}
                 <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 mb-2">
