@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { empowermentPrograms } from '../data/empowerment'
 import SearchBar from '../components/SearchBar'
-import { Users, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react'
+import { Users, ChevronDown, ChevronUp, ArrowLeft, Download, Sparkles } from 'lucide-react'
+
+const featuredCurriculum = empowermentPrograms.domestic.find((p) => p.featured)
 
 const tabMeta = [
   { id: 'domestic', label: '🇹🇼 國內方案', color: 'bg-tag-red text-white' },
@@ -50,6 +52,39 @@ export default function EmpowermentPage() {
         <p className="text-gray-500 dark:text-gray-400 mb-8">
           國內外兒少代表培力方案與實證模型
         </p>
+
+        {featuredCurriculum && (
+          <div className="mb-8 rounded-2xl border-2 border-accent-300 dark:border-accent-600/50 bg-gradient-to-br from-accent-50 to-primary-50 dark:from-slate-800 dark:to-slate-800/50 p-6 md:p-7">
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="w-5 h-5 text-accent-500" />
+              <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-accent-400 text-white">
+                本站原創教案
+              </span>
+            </div>
+            <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              {featuredCurriculum.title}
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+              {featuredCurriculum.description}
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href={featuredCurriculum.downloadUrl}
+                download={featuredCurriculum.downloadName}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-accent-500 hover:bg-accent-600 text-white rounded-xl text-sm font-semibold transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                下載 Word 教案
+              </a>
+              <Link
+                to="/empowerment#domestic"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-700 text-primary-700 dark:text-gray-200 border border-primary-200 dark:border-slate-600 rounded-xl text-sm font-semibold hover:shadow-sm transition-shadow"
+              >
+                查看 6 堂課架構
+              </Link>
+            </div>
+          </div>
+        )}
 
         <div className="grid sm:grid-cols-2 gap-4">
           {tabMeta.map(({ id, label, color }) => (
@@ -104,10 +139,19 @@ export default function EmpowermentPage() {
         {filtered.map((program) => (
           <div
             key={program.id}
-            className="bg-white dark:bg-slate-800 rounded-2xl border border-primary-200 dark:border-slate-700 p-6"
+            className={`rounded-2xl border p-6 ${
+              program.featured
+                ? 'border-2 border-accent-300 dark:border-accent-600/50 bg-gradient-to-br from-accent-50 to-white dark:from-slate-800 dark:to-slate-800'
+                : 'border-primary-200 dark:border-slate-700 bg-white dark:bg-slate-800'
+            }`}
           >
             <div className="flex items-start justify-between gap-4">
               <div>
+                {program.featured && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-accent-400 text-white mb-2 mr-2">
+                    <Sparkles className="w-3 h-3" />本站原創教案
+                  </span>
+                )}
                 <span className="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 mb-2">
                   {program.organizer}
                 </span>
@@ -124,6 +168,17 @@ export default function EmpowermentPage() {
             </div>
 
             <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">{program.description}</p>
+
+            {program.downloadUrl && (
+              <a
+                href={program.downloadUrl}
+                download={program.downloadName}
+                className="inline-flex items-center gap-2 px-4 py-2 mb-4 bg-accent-500 hover:bg-accent-600 text-white rounded-xl text-sm font-semibold transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                下載 Word 教案
+              </a>
+            )}
 
             <button
               onClick={() => setExpanded((prev) => ({ ...prev, [program.id]: !prev[program.id] }))}

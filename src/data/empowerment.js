@@ -1,6 +1,32 @@
 export const empowermentPrograms = {
   domestic: [
     {
+      id: 'emp-tw-renchin-curriculum',
+      featured: true,
+      title: '我有話要說 — 兒少表意權培力課程',
+      organizer: '中華仁親社區關懷協會 × 李雨函',
+      tags: ['本站原創', '教案', '陪讀班', '弱勢兒少', 'Lundy模型', '國內'],
+      downloadUrl: '/renchin-empowerment-curriculum.docx',
+      downloadName: '兒少表意權培力課程教案.docx',
+      description:
+        '本站原創、可直接施作的完整課程教案，專為國小五年級至國中三年級（11–15 歲）的陪讀班兒少設計。以 CRC 第 12 條、Lundy 參與模型（空間・發聲・聆聽・影響力）與 Hart 參與階梯為理論基礎，循序帶孩子從「認識表意權」走到「對真實對象發表提案」。可能是全台第一份公開分享的兒少表意權課程教案範例。',
+      structure: [
+        { unit: '第 1 堂', title: '我有話要說', description: '認識表意權、共訂安心約定（空間 Space）' },
+        { unit: '第 2 堂', title: '安全的圈圈', description: '練習傾聽、體驗被認真聽見（空間＋發聲）' },
+        { unit: '第 3 堂', title: '我的一百種說法', description: '用說／寫／畫／演多元表達（發聲 Voice）' },
+        { unit: '第 4 堂', title: '生活偵探', description: '從生活找出真實議題、5W 拆解（發聲＋聆聽對象）' },
+        { unit: '第 5 堂', title: '模擬兒少代表會', description: '寫提案、開會、共同決定（聆聽對象＋影響力）' },
+        { unit: '第 6 堂', title: '讓世界聽見', description: '對真實對象發表、體驗帶來改變（影響力 Influence）' },
+      ],
+      keyPoints: [
+        '6 堂模組化課程，每堂約 90 分鐘，可彈性抽選為 3 堂體驗版或一日營隊',
+        '專為弱勢兒少設計：強調安全、信任、不評價、自願參與，過程重於成果',
+        '每堂附完整流程、時間分配、引導提問、帶領小提醒與檢核表',
+        '附議題雷達學習單、提案單、CRC 第 12 條兒少友善版',
+        '提供 Word 教案可直接下載、列印、施作',
+      ],
+    },
+    {
       id: 'emp-tw-county',
       title: '各縣市兒促會兒少代表培訓',
       organizer: '各縣市政府（或委託民間團體辦理）',
